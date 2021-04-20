@@ -108,8 +108,9 @@ public class TeleinfoInputStream extends InputStream {
                 String valueString = groupLineTokens[1];
 
                 // verify integrity (through checksum)
-                char checksum = (groupLineTokens.length == 3 ? groupLineTokens[2].charAt(0) : ' ');
-                char computedChecksum = FrameUtil.computeGroupLineChecksum(labelStr, valueString);
+                char checksum = groupLineRef.charAt(groupLineRef.length() - 1);
+                char computedChecksum = FrameUtil
+                        .computeGroupLineChecksum(groupLineRef.substring(0, groupLineRef.length() - 2));
                 if (computedChecksum != checksum) {
                     logger.trace("computedChecksum = {}", computedChecksum);
                     logger.trace("checksum = {}", checksum);
